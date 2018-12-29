@@ -175,6 +175,127 @@ print(model)
 summary(model)
 plot(model)
 
+#Repeated Nueral Network
+
+#sampling and modelling
+
+library(ROCR)
+library(caret)
+library(nnet)
+set.seed(456)
+#Defining traing control
+train_control<-trainControl(method="repeatedcv",number=10,repeats=3)
+#train the model
+model<-train(y~.,data=mydata,trControl=train_control,method="nnet")
+#make predictions
+predicted<-predict(model,mydata)
+head(predicted)
+predicted_prob<-predict(model,mydata,type="prob")
+head(predicted_prob)
+confusionMatrix(predicted,mydata$y)
+mult_measures<-prediction(predicted_prob[ ,1],mydata[ ,14])
+ROC<-performance(mult_measures,measure="tpr",x.measure="fpr")
+auc<-performance(mult_measures,measure="auc")
+auc<-auc@y.values
+auc_legend<-paste(c("AUC",auc),collapse = "")
+plot(ROC,col="red")
+abline(a=0,b=1)
+legend(0.6,0.3,auc_legend,lty=1,lwd=1,col="red")
+
+print(model)
+summary(model)
+plot(model)
+
+#C5.0 model
+#sampling and modelling
+
+library(ROCR)
+library(caret)
+library(C50)
+set.seed(101)
+#Defining traing control
+train_control<-trainControl(method="cv",number=10)
+#train the model
+model<-train(y~.,data=mydata,trControl=train_control,method="C5.0")
+#make predictions
+predicted<-predict(model,mydata)
+head(predicted)
+predicted_prob<-predict(model,mydata,type="prob")
+head(predicted_prob)
+confusionMatrix(predicted,mydata$y)
+mult_measures<-prediction(predicted_prob[ ,1],mydata[ ,14])
+ROC<-performance(mult_measures,measure="tpr",x.measure="fpr")
+auc<-performance(mult_measures,measure="auc")
+auc<-auc@y.values
+auc_legend<-paste(c("AUC",auc),collapse = "")
+plot(ROC,col="red")
+abline(a=0,b=1)
+legend(0.6,0.3,auc_legend,lty=1,lwd=1,col="red")
+
+print(model)
+summary(model)
+plot(model)
+
+#Repeated C5.0 model
+#sampling and modelling
+
+library(ROCR)
+library(caret)
+library(C50)
+set.seed(404)
+#Defining traing control
+train_control<-trainControl(method="repeatedcv",number=10,repeats =3)
+#train the model
+model<-train(y~.,data=mydata,trControl=train_control,method="C5.0")
+#make predictions
+predicted<-predict(model,mydata)
+head(predicted)
+predicted_prob<-predict(model,mydata,type="prob")
+head(predicted_prob)
+confusionMatrix(predicted,mydata$y)
+mult_measures<-prediction(predicted_prob[ ,1],mydata[ ,14])
+ROC<-performance(mult_measures,measure="tpr",x.measure="fpr")
+auc<-performance(mult_measures,measure="auc")
+auc<-auc@y.values
+auc_legend<-paste(c("AUC",auc),collapse = "")
+plot(ROC,col="red")
+abline(a=0,b=1)
+legend(0.6,0.3,auc_legend,lty=1,lwd=1,col="red")
+
+print(model)
+summary(model)
+plot(model)
+
+#rpart Model
+#sampling and modelling
+
+library(ROCR)
+library(caret)
+library(rpart)
+set.seed(404)
+#Defining traing control
+train_control<-trainControl(method="cv",number=10)
+#train the model
+model<-train(y~.,data=mydata,trControl=train_control,method="rpart")
+#make predictions
+predicted<-predict(model,mydata)
+head(predicted)
+predicted_prob<-predict(model,mydata,type="prob")
+head(predicted_prob)
+confusionMatrix(predicted,mydata$y)
+mult_measures<-prediction(predicted_prob[ ,1],mydata[ ,14])
+ROC<-performance(mult_measures,measure="tpr",x.measure="fpr")
+auc<-performance(mult_measures,measure="auc")
+auc<-auc@y.values
+auc_legend<-paste(c("AUC",auc),collapse = "")
+plot(ROC,col="red")
+abline(a=0,b=1)
+legend(0.6,0.3,auc_legend,lty=1,lwd=1,col="red")
+
+print(model)
+summary(model)
+plot(model)
+
 
 
 

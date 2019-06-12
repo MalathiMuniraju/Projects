@@ -1,3 +1,3 @@
-# hello-world
-Just another repository
+# Project
+CASE STUDIES AND PROJECT
 Hai everyone!!!
